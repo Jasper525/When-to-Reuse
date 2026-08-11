@@ -1,0 +1,17 @@
+# Reuse or Overwrite: Training Dynamics of Rank-1 Recurrent Neural Networks
+
+Code and written report in `/Jasper_src` for *"Reuse or Overwrite: Training Dynamics of Rank-1 Recurrent Neural Networks"*, a thesis submitted in partial satisfaction of the requirements for the degree of Master of Science in Electrical and Computer Engineering, University of California, Santa Barbara.
+
+## Abstract
+
+Recurrent neural networks (RNNs) are widely used both as practical architectures for machine learning tasks involving sequential data and as computational models that let neuroscientists study recurrent circuits in the brain, yet their training dynamics are only partially understood. A key reason is dimensionality: a small RNN can have thousands of parameters that interact nonlinearly through the recurrent dynamics, making the loss landscape difficult to analyse and the role of any single design choice difficult to isolate. This thesis takes a different approach. Rather than studying full-rank networks directly, we analyse a minimal model—the rank-1 RNN with connectivity W = mn⊤ trained on a one-bit flip-flop task. The training dynamics get reduced to a two-dimensional phase plane over effective connectivity parameters, allowing the network's behaviour to be both derived mathematically and tested empirically.
+
+Using a model reduction we show that the rank-1 RNN is characterised by two effective scalar parameters, the recurrent gain R_eff = n⊤m and the input gain M_eff = n⊤W_in. We also derive a formula for the "flip boundary" M_crit(R_eff) that separates inputs strong enough to "flip-flop" the network from one memory state to the other when a new input pulse arrives. We then use this framework to study three questions about training.
+
+First, we show that the bias vector *b*, although not mathematically required for bistability, is an extremely helpful term during base training. Under standard small-weight initialisation, removing it caused gradient descent to have difficulty converging to the bistable attractor; we further show that strong-synapse initialisation breaks the same symmetry and reaches the bistable target without any bias term, confirming that this failure is specific to the small-weight regime. We trace this failure to the fact that the loss function treats positive and negative input gain identically and gradient descent sees no signal pushing it toward the correct solution from the start of training, as well as the fact that the readout direction *n*, which defines the (R_eff, M_eff) coordinate system, is itself free to rotate during training, so the optimiser cannot be relied upon to stay in the bistable region once found.
+
+After base training, we show that retraining trajectories initialised above and below the flip boundary exhibit different behaviours. In agreement with the bifurcation prediction, below-boundary initialisations are more prone to "overwriting" existing bistable structure instead of "reusing" it, before recovering.
+
+Finally, we show that using separate learning rates for *m* and *W_in* produces faster and more direct trajectories in the (R_eff, M_eff) plane by allowing M_eff to climb away from the boundary before R_eff drifts.
+
+These results give a quantitative, geometric account of when a network reuses an existing solution and when it must overwrite it, and provide hypotheses for future experiments on full-rank recurrent networks.
